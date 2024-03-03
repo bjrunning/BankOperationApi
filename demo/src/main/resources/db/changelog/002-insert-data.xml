@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="002-insert-data" author="ruslan">
+
+        <!-- Добавление пользователей -->
+        <sql>INSERT INTO users (id, login, password, username, role, is_limit_achieved, creation_date_time, birthday, start_balance, current_balance) VALUES
+            (1, 'user1login', 'password1', 'user1name', 'USER_ROLE', false, NULL, '1990-01-01', 100.00, 100.00),
+            (2, 'user2login', 'password2', 'user2name',  'USER_ROLE', false, NULL, '1985-05-05', 150.00, 150.00)
+        </sql>
+
+        <!-- Добавление почтовых адресов -->
+        <sql>INSERT INTO emails (user_id, email) VALUES ((SELECT id FROM users WHERE login = 'user1login'), 'user1@example.com');</sql>
+        <sql>INSERT INTO emails (user_id, email) VALUES ((SELECT id FROM users WHERE login = 'user1login'), 'user1_alt@example.com');</sql>
+
+        <sql>INSERT INTO emails (user_id, email) VALUES ((SELECT id FROM users WHERE login = 'user2login'), 'user2@example.com');</sql>
+
+        <!-- Добавление телефонов -->
+        <sql>INSERT INTO phones (user_id, phone) VALUES ((SELECT id FROM users WHERE login = 'user1login'), '+7 999 111 11 11');</sql>
+
+        <sql>INSERT INTO phones (user_id, phone) VALUES ((SELECT id FROM users WHERE login = 'user2login'), '+7 999 222 22 22');</sql>
+        <sql>INSERT INTO phones (user_id, phone) VALUES ((SELECT id FROM users WHERE login = 'user2login'), '+7 989 222 22 22');</sql>
+    </changeSet>
+</databaseChangeLog>

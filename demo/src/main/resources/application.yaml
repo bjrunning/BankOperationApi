@@ -1,0 +1,36 @@
+server:
+  port: 8091
+  error:
+    include-stacktrace: never
+
+spring:
+  cache:
+    type: redis
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    timeout: 60000
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: "c0mrade"
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+    enabled: true
+  quartz:
+    job-interval: 60000
+
+auth:
+  access-secret-key: this.secret.key.should.be.replaced
+  refresh-secret-key: this.secret.key.should.be.replaced.as.well
+  access-token-expiration-time-ms: 3600000
+  refresh-token-expiration-time-ms: 3600000
